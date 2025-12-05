@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ticket.mapper.TicketMapper">
+
+    <!-- ResultMap 定义 -->
+    <resultMap id="TicketResultMap" type="com.example.ticket.model.Ticket">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="completedAt" column="completed_at"/>
+    </resultMap>
+
+    <!-- 插入 Ticket -->
+    <insert id="insert" parameterType="com.example.ticket.model.Ticket" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ticket (title, description, status, created_at, updated_at, completed_at)
+        VALUES (#{title}, #{description}, #{status}, NOW(), NOW(), #{completedAt})
+    </insert>
+
+    <!-- 更新 Ticket -->
+    <update id="update" parameterType="com.example.ticket.model.Ticket">
+        UPDATE ticket
+        SET title = #{title},
+            description = #{description},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据 ID 删除 Ticket -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM ticket WHERE id = #{id}
+    </delete>
+
+    <!-- 根据 ID 查询 Ticket -->
+    <select id="findById" parameterType="java.lang.Long" resultMap="TicketResultMap">
+        SELECT id, title, description, status, created_at, updated_at, completed_at
+        FROM ticket
+        WHERE id = #{id}
+    </select>
+
+    <!-- 分页查询 Ticket 列表 -->
+    <select id="findPage" resultMap="TicketResultMap">
+        SELECT DISTINCT t.id, t.title, t.description, t.status, t.created_at, t.updated_at, t.completed_at
+        FROM ticket t
+        <if test="tagId != null">
+            INNER JOIN ticket_tag tt ON t.id = tt.ticket_id
+            WHERE tt.tag_id = #{tagId}
+            <if test="keyword != null and keyword != ''">
+                AND t.title LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </if>
+        <if test="tagId == null">
+            <if test="keyword != null and keyword != ''">
+                WHERE t.title LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </if>
+        ORDER BY t.created_at DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 统计 Ticket 数量 -->
+    <select id="count" resultType="int">
+        SELECT COUNT(DISTINCT t.id)
+        FROM ticket t
+        <if test="tagId != null">
+            INNER JOIN ticket_tag tt ON t.id = tt.ticket_id
+            WHERE tt.tag_id = #{tagId}
+            <if test="keyword != null and keyword != ''">
+                AND t.title LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </if>
+        <if test="tagId == null">
+            <if test="keyword != null and keyword != ''">
+                WHERE t.title LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </if>
+    </select>
+
+    <!-- 更新 Ticket 状态 -->
+    <update id="updateStatus">
+        UPDATE ticket
+        SET status = #{status},
+            completed_at = #{completedAt},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+</mapper>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ticket.mapper.TicketTagMapper">
+
+    <!-- ResultMap 定义 -->
+    <resultMap id="TicketTagResultMap" type="com.example.ticket.model.TicketTag">
+        <id property="id" column="id"/>
+        <result property="ticketId" column="ticket_id"/>
+        <result property="tagId" column="tag_id"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <!-- 插入 Ticket-Tag 关联 -->
+    <insert id="insert">
+        INSERT INTO ticket_tag (ticket_id, tag_id, created_at)
+        VALUES (#{ticketId}, #{tagId}, NOW())
+    </insert>
+
+    <!-- 根据 Ticket ID 删除所有关联 -->
+    <delete id="deleteByTicketId" parameterType="java.lang.Long">
+        DELETE FROM ticket_tag WHERE ticket_id = #{ticketId}
+    </delete>
+
+    <!-- 根据 Ticket ID 查询关联的 Tag ID 列表 -->
+    <select id="findTagIdsByTicketId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT tag_id
+        FROM ticket_tag
+        WHERE ticket_id = #{ticketId}
+    </select>
+
+    <!-- 根据 Tag ID 查询关联的 Ticket ID 列表 -->
+    <select id="findTicketIdsByTagId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT ticket_id
+        FROM ticket_tag
+        WHERE tag_id = #{tagId}
+    </select>
+
+</mapper>
+

@@ -1,0 +1,631 @@
+/* Ticket 标签管理系统 - Apple 风格样式 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --apple-bg: #f5f5f7;
+    --apple-white: #ffffff;
+    --apple-text: #1d1d1f;
+    --apple-text-secondary: #86868b;
+    --apple-blue: #0071e3;
+    --apple-blue-hover: #0077ed;
+    --apple-border: #d2d2d7;
+    --apple-shadow: rgba(0, 0, 0, 0.1);
+    --apple-shadow-hover: rgba(0, 0, 0, 0.15);
+    --apple-success: #34c759;
+    --apple-danger: #ff3b30;
+    --apple-warning: #ff9500;
+    --apple-tag-bg: #f5f5f7;
+    --apple-tag-text: #1d1d1f;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    color: var(--apple-text);
+    background-color: var(--apple-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* 头部样式 - Apple 风格 */
+.header {
+    background: var(--apple-white);
+    padding: 28px 40px;
+    margin-bottom: 24px;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px var(--apple-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.003em;
+    color: var(--apple-text);
+    background: linear-gradient(135deg, #1d1d1f 0%, #424245 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* 按钮样式 - Apple 风格 */
+.btn {
+    display: inline-block;
+    padding: 12px 22px;
+    font-size: 17px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    letter-spacing: -0.022em;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: var(--apple-blue);
+    color: var(--apple-white);
+    box-shadow: 0 4px 14px 0 rgba(0, 113, 227, 0.39);
+}
+
+.btn-primary:hover {
+    background: var(--apple-blue-hover);
+    box-shadow: 0 6px 20px 0 rgba(0, 113, 227, 0.5);
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background: var(--apple-success);
+    color: var(--apple-white);
+    box-shadow: 0 4px 14px 0 rgba(52, 199, 89, 0.39);
+}
+
+.btn-success:hover {
+    background: #30d158;
+    box-shadow: 0 6px 20px 0 rgba(52, 199, 89, 0.5);
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background: var(--apple-danger);
+    color: var(--apple-white);
+    box-shadow: 0 4px 14px 0 rgba(255, 59, 48, 0.39);
+}
+
+.btn-danger:hover {
+    background: #ff453a;
+    box-shadow: 0 6px 20px 0 rgba(255, 59, 48, 0.5);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: var(--apple-white);
+    color: var(--apple-text);
+    border: 1px solid var(--apple-border);
+    box-shadow: 0 2px 8px var(--apple-shadow);
+}
+
+.btn-secondary:hover {
+    background: #fafafa;
+    box-shadow: 0 4px 12px var(--apple-shadow-hover);
+    transform: translateY(-1px);
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+/* 筛选区样式 - Apple 风格 */
+.filter-section {
+    background: var(--apple-white);
+    padding: 24px 32px;
+    margin-bottom: 24px;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px var(--apple-shadow);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.filter-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-group input[type="text"],
+.filter-group select {
+    padding: 12px 16px;
+    border: 1px solid var(--apple-border);
+    border-radius: 12px;
+    font-size: 17px;
+    font-family: inherit;
+    background: var(--apple-white);
+    color: var(--apple-text);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.filter-group input[type="text"]:focus,
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--apple-blue);
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+}
+
+.filter-group input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* 表格样式 - Apple 风格 */
+.table-container {
+    background: var(--apple-white);
+    border-radius: 18px;
+    box-shadow: 0 2px 8px var(--apple-shadow);
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    padding: 16px 24px;
+    text-align: left;
+    border-bottom: 1px solid rgba(210, 210, 215, 0.3);
+}
+
+table th {
+    background: rgba(245, 245, 247, 0.5);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--apple-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+table tr {
+    transition: background-color 0.2s ease;
+}
+
+table tr:hover {
+    background-color: rgba(245, 245, 247, 0.5);
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Ticket 状态样式 - Apple 风格 */
+.ticket-completed {
+    color: var(--apple-text-secondary);
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.ticket-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.ticket-status.open {
+    background: rgba(52, 199, 89, 0.1);
+    color: var(--apple-success);
+}
+
+.ticket-status.completed {
+    background: rgba(255, 59, 48, 0.1);
+    color: var(--apple-danger);
+}
+
+/* 标签样式 - Apple 风格 */
+.tag {
+    display: inline-block;
+    padding: 6px 14px;
+    margin: 4px 4px 4px 0;
+    background: var(--apple-tag-bg);
+    color: var(--apple-tag-text);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    border: 1px solid var(--apple-border);
+    transition: all 0.2s ease;
+    /* 如果标签有自定义颜色，边框颜色会与背景色匹配 */
+}
+
+.tag:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px var(--apple-shadow);
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+/* 表单样式 - Apple 风格 */
+.form-container {
+    background: var(--apple-white);
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px var(--apple-shadow);
+    max-width: 800px;
+    margin: 0 auto;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.form-group {
+    margin-bottom: 28px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--apple-text);
+    letter-spacing: -0.01em;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid var(--apple-border);
+    border-radius: 12px;
+    font-size: 17px;
+    font-family: inherit;
+    background: var(--apple-white);
+    color: var(--apple-text);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--apple-blue);
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.form-group .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.form-group .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--apple-tag-bg);
+    border-radius: 12px;
+    border: 1px solid var(--apple-border);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.form-group .checkbox-item:hover {
+    background: #e8e8ed;
+    border-color: var(--apple-blue);
+}
+
+.form-group .checkbox-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--apple-blue);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--apple-border);
+}
+
+/* 消息提示 - Apple 风格 */
+.message {
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    background: rgba(52, 199, 89, 0.1);
+    color: var(--apple-success);
+    border: 1px solid rgba(52, 199, 89, 0.2);
+    font-size: 15px;
+    animation: slideIn 0.3s ease-out;
+}
+
+.message.error {
+    background: rgba(255, 59, 48, 0.1);
+    color: var(--apple-danger);
+    border-color: rgba(255, 59, 48, 0.2);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 分页样式 - Apple 风格 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+    padding: 24px;
+}
+
+.pagination a,
+.pagination span {
+    padding: 10px 16px;
+    text-decoration: none;
+    border: 1px solid var(--apple-border);
+    border-radius: 10px;
+    color: var(--apple-text);
+    background: var(--apple-white);
+    transition: all 0.2s ease;
+    font-size: 15px;
+}
+
+.pagination a:hover {
+    background: var(--apple-tag-bg);
+    border-color: var(--apple-blue);
+    transform: translateY(-1px);
+}
+
+.pagination .current {
+    background: var(--apple-blue);
+    color: var(--apple-white);
+    border-color: var(--apple-blue);
+    box-shadow: 0 2px 8px rgba(0, 113, 227, 0.3);
+}
+
+.pagination .disabled {
+    color: var(--apple-text-secondary);
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* 操作按钮组 - Apple 风格 */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* 错误消息样式 */
+.error-message {
+    color: var(--apple-danger);
+    font-size: 13px;
+    margin-top: 8px;
+    display: block;
+    animation: slideIn 0.2s ease-out;
+}
+
+/* 空状态样式 - Apple 风格 */
+.empty-state {
+    padding: 80px 20px;
+    text-align: center;
+    color: var(--apple-text-secondary);
+}
+
+.empty-state-icon {
+    font-size: 64px;
+    margin-bottom: 24px;
+    opacity: 0.3;
+}
+
+.empty-state h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--apple-text);
+}
+
+.empty-state p {
+    font-size: 17px;
+    color: var(--apple-text-secondary);
+}
+
+/* 加载状态 */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--apple-border);
+    border-top-color: var(--apple-blue);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 工具提示 */
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 8px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* 波纹动画 */
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* 响应式设计 - Apple 风格 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 16px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 24px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .filter-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group input[type="text"] {
+        min-width: 100%;
+    }
+
+    table {
+        font-size: 15px;
+    }
+
+    table th,
+    table td {
+        padding: 12px 16px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+    }
+
+    .form-container {
+        padding: 24px 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+}
+
+/* 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 选择文本样式 */
+::selection {
+    background: rgba(0, 113, 227, 0.2);
+    color: var(--apple-text);
+}
+
+::-moz-selection {
+    background: rgba(0, 113, 227, 0.2);
+    color: var(--apple-text);
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ticket.mapper.TagMapper">
+
+    <!-- ResultMap 定义 -->
+    <resultMap id="TagResultMap" type="com.example.ticket.model.Tag">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="color" column="color"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <!-- 根据名称查询 Tag -->
+    <select id="findByName" parameterType="java.lang.String" resultMap="TagResultMap">
+        SELECT id, name, color, created_at
+        FROM tag
+        WHERE name = #{name}
+    </select>
+
+    <!-- 根据 ID 查询 Tag -->
+    <select id="findById" parameterType="java.lang.Long" resultMap="TagResultMap">
+        SELECT id, name, color, created_at
+        FROM tag
+        WHERE id = #{id}
+    </select>
+
+    <!-- 插入 Tag -->
+    <insert id="insert" parameterType="com.example.ticket.model.Tag" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tag (name, color, created_at)
+        VALUES (#{name}, COALESCE(#{color}, '#86868b'), NOW())
+    </insert>
+
+    <!-- 查询所有 Tag -->
+    <select id="findAll" resultMap="TagResultMap">
+        SELECT id, name, color, created_at
+        FROM tag
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据 Ticket ID 查询关联的 Tag 列表 -->
+    <select id="findByTicketId" parameterType="java.lang.Long" resultMap="TagResultMap">
+        SELECT t.id, t.name, t.color, t.created_at
+        FROM tag t
+        INNER JOIN ticket_tag tt ON t.id = tt.tag_id
+        WHERE tt.ticket_id = #{ticketId}
+        ORDER BY t.created_at DESC
+    </select>
+
+    <!-- 更新 Tag -->
+    <update id="update" parameterType="com.example.ticket.model.Tag">
+        UPDATE tag
+        SET name = #{name},
+            color = COALESCE(#{color}, '#86868b')
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据 ID 删除 Tag -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM tag WHERE id = #{id}
+    </delete>
+
+</mapper>
+
